@@ -3,6 +3,7 @@
 
 CLAUDE.md
 .dotnet/
+/Assemblies/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

@@ -4,6 +4,19 @@ Always update this file when changing the mod. Add the newest entry at the top w
 
 ## 2026-05-02
 
+- Cleaned the coding repository by removing generated build/cache artifacts.
+- Removed tracked `Assemblies` output from source control now that Release deploys directly to the Steam runtime target.
+- Removed stale `Files.csproj` packaging project and simplified `GearUpAndGo.sln` to the real code project.
+- Ignored root `Assemblies` so deployed/runtime assemblies do not return to source control.
+
+Build status:
+- Debug solution build from cleaned repo: passed.
+- Release solution build from cleaned repo: passed and deployed `GearUpAndGo.dll`.
+- `deploy.ps1`: passed.
+- Ignored build/cache artifacts removed after verification.
+
+## 2026-05-02
+
 - Moved the source-controlled repository layout to `E:\Coding\Rimworld\Gear Up and Go Reforked`.
 - Converted the Steam mod folder at `E:\Steam\steamapps\common\RimWorld\Mods\Gear Up and Go Reforked` to a runtime-only deploy target.
 - Updated project references to absolute RimWorld and Harmony install paths so builds work from the coding workspace.
