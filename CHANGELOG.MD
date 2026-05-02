@@ -1,9 +1,10 @@
-# Change Log
+# Changelog
 
 Always update this file when changing the mod. Add the newest entry at the top with the date, a short summary, and build/deploy status.
 
 ## 2026-05-02
 
+- Added updated README and Steam Workshop description files for the documentation refresh.
 - Cleaned the coding repository by removing generated build/cache artifacts.
 - Removed tracked `Assemblies` output from source control now that Release deploys directly to the Steam runtime target.
 - Removed stale `Files.csproj` packaging project and simplified `GearUpAndGo.sln` to the real code project.

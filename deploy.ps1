@@ -1,27 +1,18 @@
-param(
-    [string]$DeployRoot = "E:\Steam\steamapps\common\RimWorld\Mods\Gear Up and Go Reforked"
-)
-
 $ErrorActionPreference = "Stop"
 
-$sourceRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$runtimeDirs = @("About", "Defs", "Languages", "Textures")
+$toolPath = Join-Path $PSScriptRoot "..\_Shared\RimWorldModTools.ps1"
+. $toolPath
 
-foreach ($dir in $runtimeDirs) {
-    $source = Join-Path $sourceRoot $dir
-    $target = Join-Path $DeployRoot $dir
+$repoRoot = $PSScriptRoot
+$projectPath = Join-Path $repoRoot "Source\GearUpAndGo.csproj"
+$targetRoot = Get-RimWorldModTargetPath -ModName "Gear Up and Go Reforked"
 
-    if (-not (Test-Path -LiteralPath $source)) {
-        throw "Missing runtime source directory: $source"
-    }
+Invoke-RimWorldDotNetBuild -ProjectPath $projectPath -Configuration "Release"
+Sync-RimWorldModFolders -SourceRoot $repoRoot -TargetRoot $targetRoot -Folders @("About", "Defs", "Languages", "Textures")
 
-    if (Test-Path -LiteralPath $target) {
-        Remove-Item -LiteralPath $target -Recurse -Force
-    }
-
-    Copy-Item -LiteralPath $source -Destination $target -Recurse -Force
+$stalePdb = Join-Path $targetRoot "Assemblies\GearUpAndGo.pdb"
+if (Test-Path -LiteralPath $stalePdb) {
+    Remove-Item -LiteralPath $stalePdb -Force
 }
 
-New-Item -ItemType Directory -Path (Join-Path $DeployRoot "Assemblies") -Force | Out-Null
-
-Write-Host "Deployed runtime files to $DeployRoot"
+Write-Host "Deployed Gear Up and Go Reforked to $targetRoot"

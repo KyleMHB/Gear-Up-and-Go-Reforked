@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
 	<name>Gear Up And Go (fork)</name>
-	<author>Uuugggg</author>
+	<author>KyleMHB</author>
 	<supportedVersions>
 		<li>1.6</li>
 	</supportedVersions>
 	<packageId>jungooji.GearUpAndGo</packageId>
-	<description>The original author Uuugggg has sadly passed away. I'll maintain this (or other mods) to keep his mods alive.
-Uuugggg already did most of the work for 1.6.
-
-## Original Description
-
-A button to GEAR UP AND GO.
-Draft, get gear for the current ouffit, and go to a targeted location.
-
-Will set a policy for the mod Better Pawn Control when the button is clicked. Set the policy name in the Settings.
-
-Check Steam page for any updated info.</description>
+	<description>Drafts a pawn, equips the current outfit, and sends them to a target location.</description>
 	<url>https://tdsgames.com/game-mods/</url>
 	<modDependencies>
 		<li>
