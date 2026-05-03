@@ -1,31 +1,112 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Verse;
-using RimWorld;
 
 namespace GearUpAndGo
 {
 	[StaticConstructorOnStartup]
 	static class SetBetterPawnControl
 	{
-		private const string packageId = "VouLT.BetterPawnControl";
+		private static readonly string[] packageIds =
+		{
+			"KyleMHB.BetterPawnControlForked",
+			"VouLT.BetterPawnControl"
+		};
+
+		private static readonly string[] namespaces =
+		{
+			"BetterPawnControlForked",
+			"BetterPawnControl"
+		};
+
 		public static bool working;
 		private static readonly HashSet<string> warnedMissingPolicies = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+		private static FieldInfo policiesField;
+		private static MethodInfo loadStateMethod;
+		private static MethodInfo getActivePolicyMethod;
+		private static FieldInfo policyLabelField;
 
 		public static bool Active()
 		{
 			return ModsConfig.ActiveModsInLoadOrder.Any(m =>
-				string.Equals(m.PackageIdPlayerFacing, packageId, StringComparison.OrdinalIgnoreCase));
+				packageIds.Any(packageId =>
+					string.Equals(m.PackageIdPlayerFacing, packageId, StringComparison.OrdinalIgnoreCase)));
 		}
 
 		static SetBetterPawnControl()
 		{
 			if (Active())
 			{
-				working = true;//assume it works till it fails
+				working = TryBind();
 			}
 		}
+
+		private static bool TryBind()
+		{
+			foreach (string ns in namespaces)
+			{
+				Type policyType = FindType(ns + ".Policy");
+				Type managerType = FindType(ns + ".AssignManager");
+				if (policyType == null || managerType == null)
+					continue;
+
+				FieldInfo policies = FindStaticField(managerType, "policies");
+				MethodInfo loadState = FindStaticMethod(managerType, "LoadState", policyType);
+				MethodInfo getActivePolicy = FindStaticMethod(managerType, "GetActivePolicy");
+				FieldInfo label = policyType.GetField("label", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+				if (policies == null || loadState == null || getActivePolicy == null || label == null)
+					continue;
+
+				policiesField = policies;
+				loadStateMethod = loadState;
+				getActivePolicyMethod = getActivePolicy;
+				policyLabelField = label;
+				return true;
+			}
+
+			Verse.Log.Error("Gear Up and Go could not bind to Better Pawn Control or Better Pawn Control Forked. Policy switching will be disabled.");
+			return false;
+		}
+
+		private static Type FindType(string fullName)
+		{
+			foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+			{
+				Type type = assembly.GetType(fullName, false);
+				if (type != null)
+					return type;
+			}
+
+			return null;
+		}
+
+		private static FieldInfo FindStaticField(Type type, string name)
+		{
+			for (Type current = type; current != null; current = current.BaseType)
+			{
+				FieldInfo field = current.GetField(name, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+				if (field != null)
+					return field;
+			}
+
+			return null;
+		}
+
+		private static MethodInfo FindStaticMethod(Type type, string name, params Type[] parameterTypes)
+		{
+			for (Type current = type; current != null; current = current.BaseType)
+			{
+				MethodInfo method = current.GetMethod(name, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, null, parameterTypes, null);
+				if (method != null)
+					return method;
+			}
+
+			return null;
+		}
+
 		public static void Stop(Exception e)
 		{
 			working = false;
@@ -52,12 +133,12 @@ namespace GearUpAndGo
 			if (string.IsNullOrWhiteSpace(policyName))
 				return;
 
-			BetterPawnControl.Policy policy = BetterPawnControl.AssignManager.policies
-				.FirstOrDefault(p => string.Equals(p.label, policyName, StringComparison.OrdinalIgnoreCase));
+			object policy = Policies()
+				.FirstOrDefault(p => string.Equals(PolicyLabel(p), policyName, StringComparison.OrdinalIgnoreCase));
 
 			if (policy != null)
 			{
-				BetterPawnControl.AssignManager.LoadState(policy);
+				loadStateMethod.Invoke(null, new[] { policy });
 				return;
 			}
 
@@ -81,7 +162,7 @@ namespace GearUpAndGo
 		}
 
 		private static string CurrentPolicyEx() =>
-			BetterPawnControl.AssignManager.GetActivePolicy()?.label ?? "";
+			PolicyLabel(getActivePolicyMethod.Invoke(null, null));
 
 		public static List<string> PolicyList()
 		{
@@ -100,14 +181,27 @@ namespace GearUpAndGo
 
 		private static List<string> PolicyListEx()
 		{
-			//This oneliner apparently causes problems on load when BCP not active.?
-			//BetterPawnControl.AssignManager.policies.Select(p => p.label);
-
 			List<string> result = new();
-			foreach (BetterPawnControl.Policy p in BetterPawnControl.AssignManager.policies)
-				result.Add(p.label);
+			foreach (object policy in Policies())
+			{
+				string label = PolicyLabel(policy);
+				if (!string.IsNullOrWhiteSpace(label))
+					result.Add(label);
+			}
 
 			return result;
+		}
+
+		private static IEnumerable<object> Policies()
+		{
+			return policiesField.GetValue(null) is System.Collections.IEnumerable policies
+				? policies.Cast<object>()
+				: Enumerable.Empty<object>();
+		}
+
+		private static string PolicyLabel(object policy)
+		{
+			return policy == null ? "" : policyLabelField.GetValue(policy) as string ?? "";
 		}
 	}
 }

@@ -4,7 +4,7 @@
 [h1]Features[/h1]
 [list]
 [*][b]Gear Up Command:[/b] Draft a pawn, equip the needed gear, and move them to the selected destination.
-[*][b]Better Pawn Control Support:[/b] Uses the configured BPC policy name when the mod is installed.
+[*][b]Better Pawn Control Support:[/b] Uses the configured BPC or BPC Forked policy name when the mod is installed.
 [*][b]Outfit Stands Plus Forked Support:[/b] Can work with outfit-stand gear flow when the integration is available.
 [*][b]Defensive Positions Safety:[/b] Avoids interrupting active Defensive Positions gear or movement jobs.
 [/list]

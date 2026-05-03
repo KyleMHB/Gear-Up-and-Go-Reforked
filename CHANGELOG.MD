@@ -4,6 +4,15 @@ Always update this file when changing the mod. Add the newest entry at the top w
 
 ## 2026-05-03
 
+- Restored right-click Better Pawn Control policy selection for the renamed Better Pawn Control Forked package.
+- Reworked Better Pawn Control integration to support both original and forked package ids without a compile-time BPC assembly reference.
+- Bumped assembly version to `1.0.3.0`.
+
+Build status:
+- Debug build: passed.
+
+## 2026-05-03
+
 - Stopped disabling outfit stand hauling when Gear Up and Go queues assigned stand use, allowing returned gear to go back to the stand.
 - Bumped assembly version to `1.0.2.0`.
 

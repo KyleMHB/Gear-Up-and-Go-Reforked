@@ -7,7 +7,7 @@ This refork exists to keep the original mod alive and compatible with current Ri
 ## Features
 
 - **Gear-up command** for drafting a pawn, equipping the needed outfit, and moving them to a target location.
-- **Better Pawn Control integration** through the configured policy name in mod settings.
+- **Better Pawn Control and Better Pawn Control Forked integration** through the configured policy name in mod settings.
 - **Optional Outfit Stands Plus Forked support** for safer gear flow when the stand integration is available.
 - **Defensive Positions compatibility checks** to avoid interrupting active movement or gear jobs.
 - **Localized content** through language files.
