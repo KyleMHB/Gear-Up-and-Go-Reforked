@@ -2,6 +2,15 @@
 
 Always update this file when changing the mod. Add the newest entry at the top with the date, a short summary, and build/deploy status.
 
+## 2026-05-03
+
+- Updated optional Outfit Stands Plus Forked detection to use the renamed package id `KyleMHB.OutfitStandsPlusForked`.
+- Updated documentation references to the renamed Outfit Stands Plus Forked integration.
+- Bumped assembly version to `1.0.1.0`.
+
+Build status:
+- Debug build: passed.
+
 ## 2026-05-02
 
 - Added updated README and Steam Workshop description files for the documentation refresh.
@@ -35,8 +44,8 @@ Build status:
 - Hardened Gear Up and Go job flow with validation for pawns, targets, reachability, and final goto jobs.
 - Added a max gear-up iteration guard to prevent repeated job queue churn and log spam.
 - Refactored gearing into planner and queue helpers for maintainability.
-- Added optional Outfit Stands Plus support:
-  - Detects `khamenman.OutfitStandsPLus` by package id.
+- Added optional Outfit Stands Plus Forked support:
+  - Detects `KyleMHB.OutfitStandsPlusForked` by package id.
   - Finds a pawn's assigned outfit stand.
   - Uses the stand first when it contains at least one policy-useful apparel or weapon.
   - Skips the stand and falls back to normal gearing when it is not useful.

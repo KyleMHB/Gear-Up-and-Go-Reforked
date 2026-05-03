@@ -9,7 +9,7 @@ namespace GearUpAndGo
 {
 	internal static class OutfitStandsPlusIntegration
 	{
-		private const string packageId = "khamenman.OutfitStandsPLus";
+		private const string packageId = "KyleMHB.OutfitStandsPlusForked";
 		private static readonly MethodInfo setAllowHaulingMethod =
 			typeof(Building_OutfitStand).GetMethod("SetAllowHauling", BindingFlags.NonPublic | BindingFlags.Instance);
 
