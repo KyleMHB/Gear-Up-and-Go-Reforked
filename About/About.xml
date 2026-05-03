@@ -5,7 +5,7 @@
 	<supportedVersions>
 		<li>1.6</li>
 	</supportedVersions>
-	<packageId>jungooji.GearUpAndGo</packageId>
+	<packageId>KyleMHB.GearUpAndGo</packageId>
 	<description>Drafts a pawn, equips the current outfit, and sends them to a target location.</description>
 	<url>https://tdsgames.com/game-mods/</url>
 	<modDependencies>
