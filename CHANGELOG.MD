@@ -4,6 +4,15 @@ Always update this file when changing the mod. Add the newest entry at the top w
 
 ## 2026-05-03
 
+- Stopped disabling outfit stand hauling when Gear Up and Go queues assigned stand use, allowing returned gear to go back to the stand.
+- Bumped assembly version to `1.0.2.0`.
+
+Build status:
+- Release build: passed.
+- `deploy.ps1`: passed.
+
+## 2026-05-03
+
 - Updated optional Outfit Stands Plus Forked detection to use the renamed package id `KyleMHB.OutfitStandsPlusForked`.
 - Updated documentation references to the renamed Outfit Stands Plus Forked integration.
 - Bumped assembly version to `1.0.1.0`.

@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Reflection;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -10,8 +9,6 @@ namespace GearUpAndGo
 	internal static class OutfitStandsPlusIntegration
 	{
 		private const string packageId = "KyleMHB.OutfitStandsPlusForked";
-		private static readonly MethodInfo setAllowHaulingMethod =
-			typeof(Building_OutfitStand).GetMethod("SetAllowHauling", BindingFlags.NonPublic | BindingFlags.Instance);
 
 		public static bool Active()
 		{
@@ -31,7 +28,6 @@ namespace GearUpAndGo
 			if (!pawn.CanReserveAndReach(stand, PathEndMode.InteractionCell, Danger.Deadly))
 				return null;
 
-			DisableStandHauling(stand);
 			return JobMaker.MakeJob(JobDefOf.UseOutfitStand, stand);
 		}
 
@@ -72,21 +68,6 @@ namespace GearUpAndGo
 				return false;
 
 			return EquipmentUtility.CanEquip(weapon, pawn, out string _);
-		}
-
-		private static void DisableStandHauling(Building_OutfitStand stand)
-		{
-			if (setAllowHaulingMethod == null)
-				return;
-
-			try
-			{
-				setAllowHaulingMethod.Invoke(stand, new object[] { false });
-			}
-			catch (Exception e)
-			{
-				Verse.Log.Warning($"Gear Up and Go could not disable hauling on outfit stand before use: {e}");
-			}
 		}
 	}
 }
