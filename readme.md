@@ -61,7 +61,7 @@ dotnet build .\Source\GearUpAndGo.csproj -c Release /p:UseSharedCompilation=fals
 
 The repository also includes `deploy.ps1` for runtime packaging checks.
 
-## Contributing & Forking Policy
+## Contributing and Forking Policy
 
 > Contributions, issues, and feature requests are welcome.
 >
@@ -69,6 +69,11 @@ The repository also includes `deploy.ps1` for runtime packaging checks.
 
 ## Links
 
+
+Support me on Ko-fi. This does not imply endorsement by the original authors.
+
+[![Support me on Ko-fi](https://img.shields.io/badge/Support_me_on_Ko--fi-72a4f2?style=for-the-badge&logo=kofi&logoColor=white)](https://ko-fi.com/I7L525WMJ6)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KyleMHB/Gear-Up-and-Go-Reforked)
 - **Steam Workshop:** <https://steamcommunity.com/sharedfiles/filedetails/?id=3530234134>
 - **TDS Games mod page:** <https://tdsgames.com/game-mods/>
 
