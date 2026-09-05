@@ -17,6 +17,7 @@ Build status:
 - Runtime delivery: passed to `E:\Steam\steamapps\common\RimWorld\Mods\Gear Up and Go Reforked`.
 - Source and runtime `GearUpAndGo.dll` versions: `1.0.4.0`; SHA-256 hashes match.
 - Runtime deployment contains no PDB files.
+- User-confirmed RimWorld Dev Quicktest: passed for this change set.
 
 ## 2026-05-03
 

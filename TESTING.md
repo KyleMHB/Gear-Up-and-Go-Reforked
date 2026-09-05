@@ -29,4 +29,4 @@ Run the normal mod build separately when RimWorld reference files are available:
 dotnet build .\Source\GearUpAndGo.csproj -c Release /p:UseSharedCompilation=false
 ```
 
-The compatibility patch was deployed successfully on 2026-09-05. The Release build completed with 0 warnings and 0 errors; source and runtime `GearUpAndGo.dll` files are version `1.0.4.0` with matching SHA-256 hashes, and no runtime PDB files were present. In-game verification remains pending.
+The compatibility patch was deployed successfully on 2026-09-05. The Release build completed with 0 warnings and 0 errors; source and runtime `GearUpAndGo.dll` files are version `1.0.4.0` with matching SHA-256 hashes, and no runtime PDB files were present. The user-confirmed RimWorld Dev Quicktest passed for this change set.
