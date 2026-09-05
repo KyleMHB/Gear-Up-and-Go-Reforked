@@ -2,6 +2,22 @@
 
 Always update this file when changing the mod. Add the newest entry at the top with the date, a short summary, and build/deploy status.
 
+## 2026-09-05
+
+- Fixed Better Pawn Control integration when the current fork exposes `AssignManager.policies` as an inherited static property instead of a field.
+- Retained compatibility with the original static `policies` field and existing policy selection and discovery behavior.
+- Added dependency-free regression harnesses for both reflection shapes.
+- Bumped assembly version to `1.0.4.0`.
+
+Build status:
+- Dependency-free .NET 8 inherited-property harness: passed.
+- Dependency-free .NET 8 legacy-field harness: passed.
+- Patch applicability check against the Gear Up and Go repository: passed.
+- Gear Up and Go Release build: passed with 0 warnings and 0 errors.
+- Runtime delivery: passed to `E:\Steam\steamapps\common\RimWorld\Mods\Gear Up and Go Reforked`.
+- Source and runtime `GearUpAndGo.dll` versions: `1.0.4.0`; SHA-256 hashes match.
+- Runtime deployment contains no PDB files.
+
 ## 2026-05-03
 
 - Restored right-click Better Pawn Control policy selection for the renamed Better Pawn Control Forked package.

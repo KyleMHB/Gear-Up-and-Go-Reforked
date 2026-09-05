@@ -1,47 +1,63 @@
 # Gear Up and Go Reforked
 
-Gear Up and Go Reforked is a RimWorld mod that drafts a pawn, gets the gear for the current outfit, and sends them to a targeted location.
+Gear Up and Go Reforked adds a command that drafts selected colonists, equips gear allowed by the active outfit policy, and sends them to a chosen location. Optional Better Pawn Control integration can switch to a battle preset before the pawns gear up and restore the previous preset afterward.
 
-This refork exists to keep the original mod alive and compatible with current RimWorld builds.
+This maintained refork targets RimWorld 1.6 and updates the original workflow for current gear-management mods.
 
 ## Features
 
-- **Gear-up command** for drafting a pawn, equipping the needed outfit, and moving them to a target location.
-- **Better Pawn Control and Better Pawn Control Forked integration** through the configured policy name in mod settings.
-- **Optional Outfit Stands Plus Forked support** for safer gear flow when the stand integration is available.
-- **Defensive Positions compatibility checks** to avoid interrupting active movement or gear jobs.
-- **Localized content** through language files.
+- Draft, gear, and move one or more selected colonists with one command.
+- Set a default Better Pawn Control preset or choose one from the command's right-click menu.
+- Restore the previous Better Pawn Control preset after the battle.
+- Continue gearing when Better Pawn Control is absent or the configured preset cannot be found.
+- Use policy-relevant equipment from an assigned Outfit Stands Plus Forked stand when available.
+- Work with Combat Extended loadouts and avoid competing with active Defensive Positions or outfit-stand jobs.
+- Stop unreachable or repeated gear jobs instead of cycling indefinitely.
 
 ## Installation
 
 ### Steam Workshop
 
-Subscribe to the Workshop item and enable **Harmony** and **Gear Up and Go Reforked** in RimWorld's mod list.
+1. Subscribe to [Harmony](https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077) and [Gear Up and Go Reforked](https://steamcommunity.com/sharedfiles/filedetails/?id=3724312502).
+2. Enable Harmony before Gear Up and Go Reforked in RimWorld's mod list.
 
-### Manual Installation
+### Manual installation
 
-1. Download or clone the repository.
-2. Place the mod folder in your RimWorld `Mods` directory.
-3. Enable **Harmony** and **Gear Up and Go Reforked**.
+1. Download a release and extract the mod folder into RimWorld's `Mods` directory.
+2. Enable Harmony before Gear Up and Go Reforked.
+3. Restart RimWorld after changing the active mod list.
 
 ## Usage
 
-Set the Better Pawn Control policy name in the mod settings.
+1. Select one or more player-controlled colonists.
+2. Select **Gear & Go** and choose a reachable destination.
+3. The selected pawns draft, collect suitable gear, and move to that destination.
 
-When you use the Gear Up And Go command, the pawn is drafted, switches to the configured gear policy, and heads to the selected target.
+The command also supports these controls:
 
-## Configuration
+- **Right-click Gear & Go:** choose a Better Pawn Control preset for this order.
+- **Shift-click Gear & Go while a preset is active:** restore the preset that was active before Gear & Go changed it.
+- **Hold Alt while choosing the destination:** issue the order without changing the Better Pawn Control preset.
+- **Hold Shift while choosing the destination:** queue the order.
+- **Select the active Gear Up and Go alert:** restore the previous Better Pawn Control preset.
 
-The mod exposes a settings window in RimWorld.
+## Settings and configuration
 
-The main setting is the Better Pawn Control policy name used when the button is clicked.
+Open **Options > Mod settings > Gear Up And Go**. If you use Better Pawn Control, enter the preset name Gear & Go should apply by default. The name match is case-insensitive.
 
-## Building from Source
+The setting is optional. Gearing continues without a policy switch when Better Pawn Control is not active, the field is blank, or the named preset cannot be found.
 
-Prerequisites:
+## Requirements and compatibility
 
-- .NET SDK compatible with the project
-- RimWorld reference files configured for the source project
+- Requires RimWorld 1.6 and Harmony.
+- Supports Better Pawn Control and Better Pawn Control Forked as optional integrations.
+- Supports Combat Extended loadouts when Combat Extended is active.
+- Uses assigned Outfit Stands Plus Forked stands only when they contain equipment useful for the pawn's current policy.
+- Avoids interrupting active Defensive Positions Forked and outfit-stand gear jobs.
+
+## Building from source
+
+The project targets .NET Framework 4.7.2. Install a compatible .NET SDK and update the local RimWorld and Harmony `HintPath` entries in `Source/GearUpAndGo.csproj` when your installation is not under `E:\Steam`.
 
 Build from the repository root:
 
@@ -49,17 +65,35 @@ Build from the repository root:
 dotnet build .\Source\GearUpAndGo.csproj -c Release /p:UseSharedCompilation=false
 ```
 
-Use `deploy.ps1` to copy runtime metadata and content folders when preparing a local mod package.
+The maintainer's `deploy.ps1` also depends on the local `..\_Shared\RimWorldModTools.ps1` helper and copies the runtime folders into the configured RimWorld installation.
 
-## Testing and Validation
+## Testing and validation
 
-The primary validation command is the Release build:
+Run the Better Pawn Control compatibility harnesses:
 
 ```powershell
-dotnet build .\Source\GearUpAndGo.csproj -c Release /p:UseSharedCompilation=false
+dotnet run --project .\Tests\SetBetterPawnControlBindingTests\SetBetterPawnControlBindingTests.csproj --configuration Release
+dotnet run --project .\Tests\SetBetterPawnControlLegacyBindingTests\SetBetterPawnControlLegacyBindingTests.csproj --configuration Release
 ```
 
-The repository also includes `deploy.ps1` for runtime packaging checks.
+The first harness covers the inherited-property shape used by Better Pawn Control Forked. The second covers the legacy static-field shape.
+
+## Fork history and credits
+
+Uuugggg created Gear Up And Go. A later fork kept it available through TDS Games. This refork maintains the command for RimWorld 1.6 and current integrations.
+
+Compared with the earlier versions, this refork adds current package metadata, support for both Better Pawn Control package IDs and reflection shapes, Outfit Stands Plus Forked integration, Combat Extended handling, job-loop limits, and safeguards for Defensive Positions and stand-owned gear jobs.
+
+## Links
+
+Support me on Ko-fi. This does not imply endorsement by the original authors.
+
+[![Support me on Ko-fi](https://img.shields.io/badge/Support_me_on_Ko--fi-72a4f2?style=for-the-badge&logo=kofi&logoColor=white)](https://ko-fi.com/I7L525WMJ6)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KyleMHB/Gear-Up-and-Go-Reforked)
+
+- [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3724312502)
+- [Previous Gear Up And Go fork](https://steamcommunity.com/sharedfiles/filedetails/?id=3530234134)
+- [TDS Games mod page](https://tdsgames.com/game-mods/)
 
 ## Contributing and Forking Policy
 
@@ -67,21 +101,6 @@ The repository also includes `deploy.ps1` for runtime packaging checks.
 >
 > **Forking Policy:** If your fork primarily consists of bug fixes or feature additions that align with the core vision of this project, I reserve the right to request that your changes be submitted as a Pull Request to this existing codebase rather than being published as a completely separate standalone release, package, listing, or distribution.
 
-## Links
-
-
-Support me on Ko-fi. This does not imply endorsement by the original authors.
-
-[![Support me on Ko-fi](https://img.shields.io/badge/Support_me_on_Ko--fi-72a4f2?style=for-the-badge&logo=kofi&logoColor=white)](https://ko-fi.com/I7L525WMJ6)
-[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KyleMHB/Gear-Up-and-Go-Reforked)
-- **Steam Workshop:** <https://steamcommunity.com/sharedfiles/filedetails/?id=3530234134>
-- **TDS Games mod page:** <https://tdsgames.com/game-mods/>
-
 ## License
 
-> This project is a fork of **Gear Up And Go** and inherits the original project's license. See the original project for license terms: <https://tdsgames.com/game-mods/>.
-
-## Credits
-
-- Original mod by Uuugggg.
-- Current maintenance and refork work by the current maintainer.
+This refork inherits the original Gear Up And Go license. See the [original project information](https://tdsgames.com/game-mods/) for its terms and attribution.

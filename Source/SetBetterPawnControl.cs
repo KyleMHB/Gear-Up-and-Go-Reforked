@@ -24,6 +24,7 @@ namespace GearUpAndGo
 		public static bool working;
 		private static readonly HashSet<string> warnedMissingPolicies = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 		private static FieldInfo policiesField;
+		private static PropertyInfo policiesProperty;
 		private static MethodInfo loadStateMethod;
 		private static MethodInfo getActivePolicyMethod;
 		private static FieldInfo policyLabelField;
@@ -53,14 +54,16 @@ namespace GearUpAndGo
 					continue;
 
 				FieldInfo policies = FindStaticField(managerType, "policies");
+				PropertyInfo policiesPropertyInfo = policies == null ? FindStaticProperty(managerType, "policies") : null;
 				MethodInfo loadState = FindStaticMethod(managerType, "LoadState", policyType);
 				MethodInfo getActivePolicy = FindStaticMethod(managerType, "GetActivePolicy");
 				FieldInfo label = policyType.GetField("label", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-				if (policies == null || loadState == null || getActivePolicy == null || label == null)
+				if ((policies == null && policiesPropertyInfo == null) || loadState == null || getActivePolicy == null || label == null)
 					continue;
 
 				policiesField = policies;
+				policiesProperty = policiesPropertyInfo;
 				loadStateMethod = loadState;
 				getActivePolicyMethod = getActivePolicy;
 				policyLabelField = label;
@@ -78,6 +81,18 @@ namespace GearUpAndGo
 				Type type = assembly.GetType(fullName, false);
 				if (type != null)
 					return type;
+			}
+
+			return null;
+		}
+
+		private static PropertyInfo FindStaticProperty(Type type, string name)
+		{
+			for (Type current = type; current != null; current = current.BaseType)
+			{
+				PropertyInfo property = current.GetProperty(name, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+				if (property?.GetGetMethod(true) != null)
+					return property;
 			}
 
 			return null;
@@ -194,7 +209,11 @@ namespace GearUpAndGo
 
 		private static IEnumerable<object> Policies()
 		{
-			return policiesField.GetValue(null) is System.Collections.IEnumerable policies
+			object value = policiesField != null
+				? policiesField.GetValue(null)
+				: policiesProperty.GetValue(null, null);
+
+			return value is System.Collections.IEnumerable policies
 				? policies.Cast<object>()
 				: Enumerable.Empty<object>();
 		}

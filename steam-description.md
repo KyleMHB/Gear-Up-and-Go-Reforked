@@ -1,19 +1,38 @@
 [h1]Description[/h1]
-[b]Gear Up and Go Reforked[/b] adds a command that drafts a pawn, equips the gear for a configured outfit policy, and sends the pawn to a selected destination.
+Gear Up and Go Reforked adds a command that drafts selected colonists, equips gear allowed by the active outfit policy, and sends them to a chosen location.
+
+Optional Better Pawn Control integration can switch to a battle preset before the pawns gear up and restore the previous preset afterward. The command still works when Better Pawn Control is absent or the configured preset cannot be found.
 
 [h1]Features[/h1]
 [list]
-[*][b]Gear Up command:[/b] Draft, equip, and move a pawn in one workflow.
-[*][b]Better Pawn Control support:[/b] Apply the configured policy through Better Pawn Control or Better Pawn Control Forked when installed.
-[*][b]Outfit Stands Plus Forked support:[/b] Coordinate with assigned outfit-stand gear flow when available.
-[*][b]Defensive Positions safeguards:[/b] Avoid interrupting active Defensive Positions gear or movement jobs.
+[*]Draft, gear, and move one or more selected colonists with one command.
+[*]Use a default Better Pawn Control preset or choose one from the command's right-click menu.
+[*]Restore the previous Better Pawn Control preset after the battle.
+[*]Use policy-relevant equipment from an assigned Outfit Stands Plus Forked stand when available.
+[*]Support Combat Extended loadouts and avoid competing with active Defensive Positions or outfit-stand jobs.
+[*]Stop unreachable or repeated gear jobs instead of cycling indefinitely.
 [/list]
 
 [h1]How to Use[/h1]
-Open RimWorld's mod settings and enter the Better Pawn Control outfit policy name that pawns should use. Select a pawn, activate the Gear Up And Go command, and choose the destination.
+[list=1]
+[*]Select one or more player-controlled colonists.
+[*]Select [b]Gear & Go[/b] and choose a reachable destination.
+[*]The selected pawns draft, collect suitable gear, and move to that destination.
+[/list]
+
+[b]Command controls[/b]
+[list]
+[*][b]Right-click Gear & Go:[/b] choose a Better Pawn Control preset for this order.
+[*][b]Shift-click Gear & Go while a preset is active:[/b] restore the preset that was active before Gear & Go changed it.
+[*][b]Hold Alt while choosing the destination:[/b] issue the order without changing the Better Pawn Control preset.
+[*][b]Hold Shift while choosing the destination:[/b] queue the order.
+[*][b]Select the active Gear Up and Go alert:[/b] restore the previous Better Pawn Control preset.
+[/list]
 
 [h1]Settings and Configuration[/h1]
-Set the Better Pawn Control policy name in RimWorld's mod settings. The configured name must match the policy you want the command to apply.
+Open [b]Options > Mod settings > Gear Up And Go[/b]. If you use Better Pawn Control, enter the preset name Gear & Go should apply by default. The name match is case-insensitive.
+
+The setting is optional. Gearing continues without a policy switch when Better Pawn Control is not active, the field is blank, or the named preset cannot be found.
 
 [h1]Requirements and Dependencies[/h1]
 [list]
@@ -21,23 +40,25 @@ Set the Better Pawn Control policy name in RimWorld's mod settings. The configur
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url].
 [/list]
 
-[h1]Compatibility, Load Order, Multiplayer, and Save Safety[/h1]
+[h1]Compatibility and Load Order[/h1]
 [list]
-[*][b]Optional integrations:[/b] Better Pawn Control, Better Pawn Control Forked, Outfit Stands Plus Forked, and Defensive Positions Forked.
-[*][b]Load order:[/b] Load after Harmony and supported integration mods when applicable.
-[*][b]Gear-flow safety:[/b] The integration avoids competing with active outfit-stand and Defensive Positions jobs.
+[*][b]Better Pawn Control:[/b] Supports both Better Pawn Control and Better Pawn Control Forked as optional integrations.
+[*][b]Combat Extended:[/b] Uses Combat Extended loadout jobs when Combat Extended is active.
+[*][b]Outfit Stands Plus Forked:[/b] Uses an assigned stand only when it contains equipment useful for the pawn's current policy.
+[*][b]Defensive Positions Forked:[/b] Avoids interrupting active movement and gear jobs.
+[*][b]Load order:[/b] Load Harmony before Gear Up and Go Reforked.
 [/list]
 
 [h1]Fork History[/h1]
-Gear Up And Go was created by Uuugggg and later maintained through a previous fork. This refork keeps the workflow available for RimWorld 1.6 and current gear-management integrations.
+Uuugggg created Gear Up And Go. A later fork kept it available through TDS Games. This refork maintains the command for RimWorld 1.6 and current integrations.
 
-Compared with the upstream versions, this refork adds current package metadata, Better Pawn Control Forked policy support, Outfit Stands Plus Forked integration, and safeguards around Defensive Positions and stand-owned gear jobs.
+Compared with the earlier versions, this refork adds current package metadata, support for both Better Pawn Control package IDs and reflection shapes, Outfit Stands Plus Forked integration, Combat Extended handling, job-loop limits, and safeguards for Defensive Positions and stand-owned gear jobs.
 
 [h1]Credits[/h1]
 Original Gear Up And Go by Uuugggg. Previous maintenance and project information are available through TDS Games. This refork is maintained by KyleMHB.
 
 [h1]License and Forking Policy[/h1]
-This project inherits the original mod's license.
+This refork inherits the original Gear Up And Go license.
 
 If your fork primarily consists of bug fixes or feature additions that align with the core vision of this mod, I reserve the right to request that your changes be submitted as a Pull Request to my existing codebase rather than being published as a completely separate standalone release.
 
