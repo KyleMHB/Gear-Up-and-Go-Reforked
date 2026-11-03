@@ -36,7 +36,7 @@ The setting is optional. Gearing continues without a policy switch when Better P
 
 [h1]Requirements and Dependencies[/h1]
 [list]
-[*]RimWorld 1.6.
+[*]RimWorld 1.6 and 1.7.
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url].
 [/list]
 
@@ -57,12 +57,9 @@ Compared with the earlier versions, this refork adds current package metadata, s
 [h1]Credits[/h1]
 Original Gear Up And Go by Uuugggg. Previous maintenance and project information are available through TDS Games. This refork is maintained by KyleMHB.
 
-[h1]License and Forking Policy[/h1]
+[h1]License[/h1]
 This refork inherits the original Gear Up And Go license.
 
-If your fork primarily consists of bug fixes or feature additions that align with the core vision of this mod, I reserve the right to request that your changes be submitted as a Pull Request to my existing codebase rather than being published as a completely separate standalone release.
-
-This is a project request, not an additional license restriction.
 
 [h1]Links[/h1]
 Support me on Ko-fi. This does not imply endorsement by the original authors.
@@ -73,4 +70,9 @@ Support me on Ko-fi. This does not imply endorsement by the original authors.
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3724312502]Gear Up and Go Reforked on Steam Workshop[/url]
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3530234134]Previous Gear Up And Go fork[/url]
 [*][url=https://tdsgames.com/game-mods/]TDS Games mod page[/url]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3724294345]Better Pawn Control Forked[/url]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3714050938]Cargo Containers Expanded[/url]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3710884766]Everything Has Quality Reforked[/url]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3724311713]Outfit Stands Plus Forked[/url]
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3712317437]Stats Forked[/url]
 [/list]

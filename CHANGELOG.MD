@@ -2,6 +2,12 @@
 
 Always update this file when changing the mod. Add the newest entry at the top with the date, a short summary, and build/deploy status.
 
+## 2026-10-14
+
+### Changed
+
+- Added RimWorld 1.7 compatibility while retaining 1.6 support.
+
 ## 2026-09-05
 
 - Fixed Better Pawn Control integration when the current fork exposes `AssignManager.policies` as an inherited static property instead of a field.
