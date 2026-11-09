@@ -7,4 +7,6 @@
 	<TD.SettingBetterPawnControlPolicy>Better Pawn Control을 사용중이라면 전투준비태세 버튼을 클릭했을 때 이 정책을 사용합니다:</TD.SettingBetterPawnControlPolicy>
 	<TD.SettingBetterPawnControlRemembered>마wl막 정책이 기억되었습니다, Shift + 클릭으로 초기화 및 소집 해제합니다.</TD.SettingBetterPawnControlRemembered>
 	
+	<TD.SettingBetterPawnControlCustom>(대신 버튼을 우클릭하면 드롭다운 메뉴에서 정책을 선택할 수 있습니다)</TD.SettingBetterPawnControlCustom>
+	<TD.GearUpPolicySetAlert>전투준비태세가 전투용 Better Pawn Control 정책을 설정했습니다.\n\n클릭하면 이전 정책으로 되돌립니다</TD.GearUpPolicySetAlert>
 </LanguageData>
