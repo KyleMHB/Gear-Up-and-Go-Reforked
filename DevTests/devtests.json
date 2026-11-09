@@ -7,5 +7,8 @@
   "devProject": "DevTests/GearUpAndGo.DevTests.csproj",
   "evidenceFolder": "GearUpAndGoReforkedTests",
   "runtimeFolders": ["About", "Assemblies", "Defs", "Languages", "Textures"],
-  "runtimeFiles": []
+  "runtimeFiles": [],
+  "modSets": {
+    "default": ["brrainz.harmony", "ludeon.rimworld", "kylemhb.gearupandgo"]
+  }
 }
