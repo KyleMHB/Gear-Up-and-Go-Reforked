@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Verse;
 
 namespace BetterPawnControlForked
 {
@@ -15,11 +17,23 @@ namespace BetterPawnControlForked
 	public class Manager
 	{
 		public static List<Policy> policies { get; set; } = new List<Policy>();
+		public static List<Pawn> colonists = new List<Pawn>();
+
+		internal static IEnumerable<Pawn> Colonists()
+		{
+			return colonists.Where(p => p != null);
+		}
 	}
 
 	public class AssignManager : Manager
 	{
 		private static Policy activePolicy;
+		public static List<string> saves = new List<string>();
+
+		internal static void SaveCurrentState(List<Pawn> pawns)
+		{
+			saves.Add(GetActivePolicy().label + ":" + pawns.Count);
+		}
 
 		public static void LoadState(Policy policy)
 		{

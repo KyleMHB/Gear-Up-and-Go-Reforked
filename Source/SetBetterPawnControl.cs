@@ -28,6 +28,9 @@ namespace GearUpAndGo
 		private static MethodInfo loadStateMethod;
 		private static MethodInfo getActivePolicyMethod;
 		private static FieldInfo policyLabelField;
+		// Optional: BPC's own preset switch saves the colonists' current settings into the active preset first.
+		private static MethodInfo colonistsMethod;
+		private static MethodInfo saveCurrentStateMethod;
 
 		public static bool Active()
 		{
@@ -67,6 +70,8 @@ namespace GearUpAndGo
 				loadStateMethod = loadState;
 				getActivePolicyMethod = getActivePolicy;
 				policyLabelField = label;
+				colonistsMethod = FindStaticMethod(managerType, "Colonists");
+				saveCurrentStateMethod = FindStaticMethodWithArity(managerType, "SaveCurrentState", 1);
 				return true;
 			}
 
@@ -122,6 +127,20 @@ namespace GearUpAndGo
 			return null;
 		}
 
+		private static MethodInfo FindStaticMethodWithArity(Type type, string name, int arity)
+		{
+			for (Type current = type; current != null; current = current.BaseType)
+			{
+				MethodInfo method = current
+					.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly)
+					.FirstOrDefault(m => m.Name == name && m.GetParameters().Length == arity);
+				if (method != null)
+					return method;
+			}
+
+			return null;
+		}
+
 		public static void Stop(Exception e)
 		{
 			working = false;
@@ -129,36 +148,58 @@ namespace GearUpAndGo
 			Verse.Log.Error($"Hey, dang, Gear Up and Go failed to use Better Pawn Control:\n\n{e}");
 		}
 
-		public static void SetPawnControlPolicy(string policyName)
+		/// <summary>Switches Better Pawn Control to the named preset. Returns false when nothing was switched.</summary>
+		public static bool SetPawnControlPolicy(string policyName)
 		{
-			if (!working) return;
+			if (!working) return false;
 
 			try
 			{
-				SetPawnControlPolicyEx(policyName);
+				return SetPawnControlPolicyEx(policyName);
 			}
 			catch (Exception e)
 			{
 				Stop(e);
+				return false;
 			}
 		}
 
-		private static void SetPawnControlPolicyEx(string policyName)
+		private static bool SetPawnControlPolicyEx(string policyName)
 		{
 			if (string.IsNullOrWhiteSpace(policyName))
-				return;
+				return false;
 
 			object policy = Policies()
 				.FirstOrDefault(p => string.Equals(PolicyLabel(p), policyName, StringComparison.OrdinalIgnoreCase));
 
 			if (policy != null)
 			{
+				SaveCurrentState();
 				loadStateMethod.Invoke(null, new[] { policy });
-				return;
+				return true;
 			}
 
 			if (warnedMissingPolicies.Add(policyName))
 				Verse.Log.Warning($"Gear Up and Go could not find Better Pawn Control policy '{policyName}'. Gearing will continue without changing policy.");
+			return false;
+		}
+
+		// Stores the colonists' current settings in the active preset, as BPC's own preset switch does, so changes made
+		// since BPC last saved are not lost when Gear & Go later restores that preset.
+		private static void SaveCurrentState()
+		{
+			if (colonistsMethod == null || saveCurrentStateMethod == null)
+				return;
+
+			object colonists = colonistsMethod.Invoke(null, null);
+			if (colonists == null)
+				return;
+
+			Type parameterType = saveCurrentStateMethod.GetParameters()[0].ParameterType;
+			object argument = parameterType.IsInstanceOfType(colonists)
+				? colonists
+				: Activator.CreateInstance(parameterType, colonists);
+			saveCurrentStateMethod.Invoke(null, new[] { argument });
 		}
 
 		public static string CurrentPolicy()

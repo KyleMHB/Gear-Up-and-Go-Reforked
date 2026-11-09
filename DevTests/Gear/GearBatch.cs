@@ -12,7 +12,8 @@ namespace GearUpAndGo.DevTests;
 // Expected behaviour (README "Features"/"Usage"): the Gear & Go command drafts the selected colonist, equips gear allowed by
 // the active outfit policy, then sends them to the chosen location; repeated gear jobs stop instead of cycling indefinitely.
 // Mechanical setup: the job the command issues (GearUpAndGo, count 0, DraftedOrder) is ordered directly; the gizmo and the
-// targeter are not clicked. Better Pawn Control is not loaded, so no policy switch takes place.
+// targeter are not clicked. The batch's default mod set has no Better Pawn Control, so no policy switch takes place (BpcBatch
+// covers the switch; under run-all's merged set BPC is loaded but no preset is configured).
 public class GearBatch : Batch
 {
     private const string HarmonyId = "uuugggg.rimworld.GearUpAndGo.main";

@@ -13,6 +13,6 @@ public sealed class ModHarness : HarnessSettings
     public override string EvidenceFolder => "GearUpAndGoReforkedTests";
     public override string[] RuntimeFolders => new[] { "About", "Assemblies", "Defs", "Languages", "Textures" };
     public override string[] RuntimeFiles => Array.Empty<string>();
-    public override IEnumerable<Batch> CreateBatches() => new Batch[] { new GearBatch() };
-    public override IEnumerable<string> RunAll => new[] { "guag-gear" };
+    public override IEnumerable<Batch> CreateBatches() => new Batch[] { new GearBatch(), new BpcBatch() };
+    public override IEnumerable<string> RunAll => new[] { "guag-gear", "guag-bpc" };
 }

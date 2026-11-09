@@ -8,6 +8,10 @@ namespace Verse
 	{
 	}
 
+	public sealed class Pawn
+	{
+	}
+
 	public sealed class ModContentPack
 	{
 		public string PackageIdPlayerFacing { get; set; }

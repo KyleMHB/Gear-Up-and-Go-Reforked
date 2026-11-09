@@ -24,7 +24,12 @@ internal static class Program
 			Assert(SetBetterPawnControl.Active(), "the fork package should be detected");
 			Assert(SetBetterPawnControl.working, "BPC binding should accept an inherited policies property");
 			AssertSequence(SetBetterPawnControl.PolicyList(), "Everyday", "Combat");
-			SetBetterPawnControl.SetPawnControlPolicy("Combat");
+			Manager.colonists = new List<Pawn> { new Pawn(), new Pawn() };
+			Assert(!SetBetterPawnControl.SetPawnControlPolicy("Missing"), "a missing policy should report that nothing was switched");
+			Assert(SetBetterPawnControl.CurrentPolicy() == "Everyday", "a missing policy should leave the active policy unchanged");
+			Assert(AssignManager.saves.Count == 0, "a missing policy should not save the current state");
+			Assert(SetBetterPawnControl.SetPawnControlPolicy("combat"), "an existing policy should report the switch, ignoring case");
+			AssertSequence(AssignManager.saves, "Everyday:2");
 			Assert(SetBetterPawnControl.CurrentPolicy() == "Combat", "the active policy should be read through GetActivePolicy");
 
 			Console.WriteLine("PASS: Better Pawn Control inherited-property binding");

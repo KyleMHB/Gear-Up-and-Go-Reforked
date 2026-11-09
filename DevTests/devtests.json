@@ -9,6 +9,10 @@
   "runtimeFolders": ["About", "Assemblies", "Defs", "Languages", "Textures"],
   "runtimeFiles": [],
   "modSets": {
-    "default": ["brrainz.harmony", "ludeon.rimworld", "kylemhb.gearupandgo"]
+    "default": ["brrainz.harmony", "ludeon.rimworld", "kylemhb.gearupandgo"],
+    "bpc": ["brrainz.harmony", "ludeon.rimworld", "kylemhb.betterpawncontrolforked", "kylemhb.gearupandgo"]
+  },
+  "batchModSets": {
+    "guag-bpc": "bpc"
   }
 }

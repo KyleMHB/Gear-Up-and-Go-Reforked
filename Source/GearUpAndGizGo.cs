@@ -93,11 +93,10 @@ namespace GearUpAndGo
 		public void Set(string policy)
 		{
 			if (string.IsNullOrWhiteSpace(policy)) return;
-			if (lastPolicy == "")
-			{
-				lastPolicy = SetBetterPawnControl.CurrentPolicy();
-			}
-			SetBetterPawnControl.SetPawnControlPolicy(policy);
+			// Remember the previous preset only when the switch happened, so a missing preset leaves the switch off.
+			string previous = SetBetterPawnControl.CurrentPolicy();
+			if (SetBetterPawnControl.SetPawnControlPolicy(policy) && lastPolicy == "")
+				lastPolicy = previous;
 		}
 		public void Revert()
 		{
