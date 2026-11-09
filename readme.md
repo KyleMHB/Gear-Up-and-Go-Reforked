@@ -57,7 +57,7 @@ The setting is optional. Gearing continues without a policy switch when Better P
 
 ## Building from source
 
-The project targets .NET Framework 4.7.2. Install a compatible .NET SDK and update the local RimWorld and Harmony `HintPath` entries in `Source/GearUpAndGo.csproj` when your installation is not under `E:\Steam`.
+The project targets .NET Framework 4.7.2. It compiles against the RimWorld 1.6 reference assemblies from the `Krafs.Rimworld.Ref` 1.6.4871 NuGet package and the `Microsoft.NETFramework.ReferenceAssemblies.net472` package in your NuGet cache. RimWorld 1.7 no longer ships a Unity managed folder, and the 1.6 build runs on both versions. If your packages or Harmony live elsewhere, pass `/p:RimWorldManagedPath=...` or `/p:HarmonyAssemblyPath=...`.
 
 Build from the repository root:
 
