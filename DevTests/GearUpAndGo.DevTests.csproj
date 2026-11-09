@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>GearUpAndGo.DevTests</AssemblyName>
+    <RootNamespace>GearUpAndGo.DevTests</RootNamespace>
+    <OutputPath>..\work\devtests\</OutputPath>
+    <DevTestsProductionDll>..\Assemblies\GearUpAndGo.dll</DevTestsProductionDll>
+    <RimWorldDevTestsProps Condition="'$(RimWorldDevTestsProps)' == ''">..\..\RimWorldDevTests\RimWorldDevTests.props</RimWorldDevTestsProps>
+  </PropertyGroup>
+  <Import Project="$(RimWorldDevTestsProps)" />
+</Project>
