@@ -90,3 +90,7 @@ The installed mod must match the current `Assemblies/GearUpAndGo.dll`, so run `d
 - **Batch change:** `guag.bpc-missing` now asserts that the switch stays off. Before the switch, the colonist's outfit is changed to `GUAG test changed outfit` without BPC saving it, and `guag.bpc-restore` expects that outfit back.
 - **Unfixed mod, `20261109-192022-guag-bpc-s1`:** 4 passed, 2 failed as expected. `guag.bpc-missing` saw the switch on with `lastPolicy` `Default`. `guag.bpc-restore` got the peace outfit back instead of the changed one.
 - **Fixed mod, deployed with `deploy.ps1`:** `20261109-192045-guag-bpc-s1` passed 6 of 6, and `20261109-192059-guag-gear-s1` passed 5 of 5. Both offline harnesses pass.
+
+### 2026-11-09 full mod list
+
+- **`--mods full`, run `20261109-193946-run-all-s1`:** 11 of 11 gameplay cases passed (`guag-gear` and `guag-bpc`), plus 13 of 13 runner self-checks. The player's active list (1,534 mods, 386 settings files) was loaded in the isolated save-data folder; the player's own ModsConfig and settings were not written. Another mod generated a 126x384 map instead of 75x75, and the batches adapted. Command: `python tools/<prefix>_test.py run run-all --mods full --seed 1 --timeout 2400`.
